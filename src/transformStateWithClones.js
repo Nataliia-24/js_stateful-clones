@@ -7,21 +7,21 @@
  * @return {Object[]}
  */
 function transformStateWithClones(state, actions) {
-  let currentState = { ...state }; // Створюємо копію початкового стану
-  const history = []; // Масив для збереження станів після кожної дії
+  let currentState = { ...state };
+  const history = [];
 
   for (const action of actions) {
     if (action.type === 'clear') {
-      currentState = {}; // Очищаємо стан
+      currentState = {};
     } else if (action.type === 'addProperties') {
-      currentState = { ...currentState, ...action.extraData }; // Додаємо нові властивості
+      currentState = { ...currentState, ...action.extraData };
     } else if (action.type === 'removeProperties') {
-      currentState = { ...currentState }; // Копіюємо стан перед змінами
+      currentState = { ...currentState };
       for (const key of action.keysToRemove) {
-        delete currentState[key]; // Видаляємо вказані ключі
+        delete currentState[key];
       }
     }
-    history.push({ ...currentState }); // Додаємо копію поточного стану в історію
+    history.push({ ...currentState });
   }
   
   return history;
